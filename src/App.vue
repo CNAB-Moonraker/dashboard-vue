@@ -1,21 +1,20 @@
 <template>
-	<div id='app'>
-		<HelloWorld msg='Welcome to Your Vue.js + TypeScript App' />
-	</div>
+	<v-app>
+		<core-filter />
+
+		<core-toolbar />
+
+		<core-drawer />
+
+		<core-view />
+	</v-app>
 </template>
 
-<script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
-import HelloWorld from './components/HelloWorld.vue'
+<style lang="scss">
+@import '@/styles/index.scss';
 
-@Component({
-	components: {
-		HelloWorld
-	}
-})
-
-export default class App extends Vue {}
-</script>
-
-<style scoped>
+/* Remove in 1.2 */
+.v-datatable thead th.column.sortable i {
+	vertical-align: unset;
+}
 </style>

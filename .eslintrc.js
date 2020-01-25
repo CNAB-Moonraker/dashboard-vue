@@ -3,75 +3,127 @@ module.exports = {
 	env: {
 		node: true
 	},
-	'extends': [
-		'plugin:vue/essential',
-		'@vue/standard',
-		'@vue/typescript'
+	"extends": [
+		"plugin:vue/essential",
+		"eslint:recommended",
+	],
+	plugins: [
+		"import-quotes"
 	],
 	rules: {
-		'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-		'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-		'no-unused-vars': 'off',
-		'no-tabs': 'off',
-		'indent': [
-			'warn',
-			'tab',
+		// "no-console": process.env.NODE_ENV === "production" ? "error" : 0,
+		// "no-debugger": process.env.NODE_ENV === "production" ? "error" : 0,
+		"array-bracket-newline": [
+			1,
+			{
+				"multiline": true
+			}
 		],
-		'semi': [
-			'warn',
-			'never',
+		"array-bracket-spacing": [
+			1,
+			"never"
 		],
-		'linebreak-style': 'off',
-		'vue/no-unused-components': 'warn',
-		'vue/no-unused-vars': 'warn',
-		'vue/html-closing-bracket-newline': 'warn',
-		'vue/html-closing-bracket-spacing': 'warn',
-		'vue/html-end-tags': 'error',
-		'vue/html-indent': [
-			'warn',
-			'tab',
+		"array-element-newline": 0,
+		"block-spacing": 1,
+		"brace-style": 0,
+		"comma-dangle": [
+			1,
+			"always-multiline"
 		],
-		'vue/script-indent': [
-			'warn',
-			'tab',
+		"constructor-super": 1,
+		"curly": [
+			1,
+			"multi-or-nest"
 		],
-		'vue/html-quotes': [
-			'warn',
-			'single',
+		"dot-location": [
+			1,
+			"property"
 		],
-		'vue/no-spaces-around-equal-signs-in-attribute': 'warn',
-		'vue/attributes-order': 'warn',
-		'vue/no-confusing-v-for-v-if': 'warn',
-		'vue/no-v-html': 'error',
-		'vue/order-in-components': 'warn',
-		'vue/this-in-template': 'error',
-		'vue/eqeqeq': 'warn',
-		'vue/match-component-file-name': 'error',
-		'vue/script-indent': [
-			'warn',
-			'tab'
+		"eqeqeq": [
+			1,
+			"always"
 		],
-		'no-mixed-spaces-and-tabs': [
-			'warn',
-			'smart-tabs',
+		"func-call-spacing": 1,
+		"indent": [
+			1,
+			"tab"
 		],
-		'vue/html-self-closing': 'off',
-		'vue/max-attributes-per-line': 'off',
-		'es-beautifier/multiline-array-elements': 'off',
-		'space-before-function-paren': 'off'
+		"jsx-quotes": [
+			1,
+			"prefer-single"
+		],
+		"no-console": 0,
+		"no-extra-bind": 1,
+		"no-multi-spaces": 1,
+		"no-multiple-empty-lines": [
+			1,
+			{
+				"max": 1,
+				"maxEOF": 1
+			}
+		],
+		"no-trailing-spaces": 1,
+		"no-unneeded-ternary": 1,
+		"no-unused-vars": 0,
+		"no-var": 1,
+		"object-shorthand": 1,
+		"prefer-arrow-callback": 1,
+		"prefer-const": 1,
+		"prefer-template": 1,
+		"quotes": 0,
+		"semi": 0,
+		"spaced-comment": [
+			1,
+			"always"
+		],
+		"template-curly-spacing": [
+			1,
+			"never"
+		],
+		"yoda": [
+			1,
+			"never"
+		],
+		// Import Quotes
+		"import-quotes/import-quotes": [
+			1,
+			"single"
+		],
+		// Vue Rules
+		"vue/html-indent": [
+			1,
+			"tab"
+		],
+		"vue/html-quotes": [
+			1,
+			"single"
+		],
+		"vue/script-indent": [
+			1,
+			"tab",
+			{
+				"baseIndent": 1,
+				"switchCase": 1,
+			}
+		],
+		"vue/v-bind-style": [
+			1,
+			"shorthand"
+		],
+		"vue/v-on-style": [
+			1,
+			"shorthand"
+		],
 	},
-	parserOptions: {
-		parser: '@typescript-eslint/parser'
-	},
-	overrides: [
+	"overrides": [
 		{
-			files: [
-				'**/__tests__/*.{j,t}s?(x)',
-				'**/tests/unit/**/*.spec.{j,t}s?(x)'
-			],
-			env: {
-				jest: true
+			"files": ["*.vue"],
+			"rules": {
+				"indent": 0
 			}
 		}
-	]
+	],
+	parserOptions: {
+		parser: "@typescript-eslint/parser"
+	}
 }
