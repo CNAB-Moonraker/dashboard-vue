@@ -1,28 +1,44 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+	<div id='app'>
+		<DashSection :test='bundlesInstalled' />
+	</div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+	import DashSection from '@/components/DashSection'
 
-export default {
-  name: 'app',
-  components: {
-    HelloWorld
-  }
-}
+	import store from '@/store'
+
+	export default {
+		name: `app`,
+		components: {
+			DashSection,
+		},
+		data() {
+			return {
+				bundlesInstalled: store.bundlesInstalled,
+			}
+		},
+	}
 </script>
 
-<style lang="scss">
+<style lang='scss'>
+@import url('https://fonts.googleapis.com/css?family=Ubuntu&display=swap');
+:root {
+	font-family: 'Ubuntu', sans-serif;
+}
+
+body {
+	position: relative;
+	margin: 0;
+	height: 100vh;
+	width: 100vw;
+}
+
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 </style>
