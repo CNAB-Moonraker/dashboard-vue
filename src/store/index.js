@@ -5,6 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
 	state: {
+		lastUpdated: Date.now(),
 		claims: [],
 		bundlesInstalled: 47,
 		recentBundles: [
@@ -46,7 +47,9 @@ export default new Vuex.Store({
 			'duffle': 23,
 			'docker app': 13,
 		},
-		bundleStatus: 1,
+		bundleStatus: {
+			'In Progress': 1,
+		},
 	},
 	mutations: {
 	},

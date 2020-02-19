@@ -1,9 +1,3 @@
-<template>
-	<div id='dash-section'>
-		<h1>Bundles Installed: {{test}}</h1>
-	</div>
-</template>
-
 <script>
 	export default {
 		name: `dash-section`,
@@ -19,6 +13,12 @@
 		},
 	}
 </script>
+
+<template>
+	<div id='dash-section'>
+		<h1>Bundles Installed: {{test}}</h1>
+	</div>
+</template>
 
 <style lang='scss' scoped>
 #dash-section {
