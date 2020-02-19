@@ -1,9 +1,10 @@
 <script>
-	import BundlesInstalled from '@/components/BundlesInstalled'
-	import RecentBundles from '@/components/RecentBundles'
-	import Mixins from '@/components/Mixins'
-	import Installers from '@/components/Installers'
-	import BundleStatus from '@/components/BundleStatus'
+	import BundlesInstalled from '@/components/BundlesInstalled.vue'
+	import RecentBundles from '@/components/RecentBundles.vue'
+	import Installers from '@/components/Installers.vue'
+	import BundleStatus from '@/components/BundleStatus.vue'
+
+	import Mixins from '@/components/custom/porter/Mixins.vue'
 
 	import logo from '@/img/MOONRAKER.svg'
 
@@ -22,7 +23,7 @@
 			return {
 				state: store.state,
 				logo,
-				colorCode: 'A400',
+				colorCode: '500',
 			}
 		},
 		mounted() {
@@ -47,7 +48,7 @@
 </template>
 
 <style lang='scss'>
-// @import url('https://fonts.googleapis.com/css?family=Ubuntu&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Ubuntu&display=swap');
 @import url('scss/color.scss');
 
 :root {
@@ -88,8 +89,7 @@ body {
 		h4 {
 			font-size: 2rem;
 			margin: 0;
-			text-shadow: 0 0 10px rgba(255, 255, 255, .5);
-			// text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+			text-shadow: 0 2px 5px rgba(0,0,0,0.5);
 		}
 	}
 
@@ -105,7 +105,7 @@ body {
 
 		section {
 			border-radius: 4px;
-			// box-shadow: 0 2px 5px 0 rgba(0,0,0,0.5);
+			box-shadow: 0 2px 5px 0 rgba(0,0,0,0.5);
 		}
 	}
 }
