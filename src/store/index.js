@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { ApiProxy } from '../services'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
 	state: {
 		lastUpdated: Date.now(),
-		claims: [],
+		claims: {},
 		bundlesInstalled: 47,
 		recentBundles: [
 			{
@@ -52,9 +53,29 @@ export default new Vuex.Store({
 		},
 	},
 	mutations: {
+		setClaims(state, claims) {
+			state.claims = claims
+			state.lastUpdated = Date.now()
+
+			// const claimsArr = []
+			// for (const key of Object.keys(claims)) {
+			// 	state.installers[key] = claims[key].length
+			// 	claimsArr.push(...claims[key])
+			// }
+
+			// state.bundlesInstalled = claimsArr.length
+		},
 	},
 	actions: {
+		async getClaims({ commit }) {
+			commit(`setClaims`, await ApiProxy.getClaims())
+		},
 	},
-	modules: {
+	getters: {
+		allClaims: ({ claims }) => {
+			const claimsArr = []
+			for (const key of Object.keys(claims)) claimsArr.push(...claims[key])
+			return claimsArr
+		},
 	},
 })
