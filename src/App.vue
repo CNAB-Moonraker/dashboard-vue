@@ -8,25 +8,23 @@
 
 	import logo from '@/img/MOONRAKER.svg'
 
-	import store from '@/store'
-
 	export default {
 		name: `app`,
 		components: {
 			BundlesInstalled,
-			RecentBundles,
-			Mixins,
-			Installers,
-			BundleStatus,
+			// RecentBundles,
+			// Mixins,
+			// Installers,
+			// BundleStatus,
 		},
 		data() {
 			return {
-				state: store.state,
 				logo,
 				colorCode: '500',
 			}
 		},
 		mounted() {
+			this.$store.dispatch('getClaims')
 		},
 	}
 </script>
@@ -38,11 +36,42 @@
 			<h4>Moonraker</h4>
 		</header>
 		<main>
+
+			<!--
 			<bundles-installed :data='state.bundlesInstalled' color='orange' :color-code='colorCode' />
 			<recent-bundles :data='state.recentBundles' color='indigo' :color-code='colorCode' />
 			<mixins :data='state.mixins' color='deep_purple' :color-code='colorCode' />
 			<installers :data='state.installers' color='green' :color-code='colorCode' />
 			<bundle-status :data='state.bundleStatus' color='pink' :color-code='colorCode' />
+			-->
+
+			<bundles-installed
+				color='orange'
+				:color-code='colorCode'
+			/>
+
+			<!--
+			<recent-bundles
+				color='indigo'
+				:color-code='colorCode'
+			/>
+
+			<mixins
+				color='deep_purple'
+				:color-code='colorCode'
+			/>
+
+			<installers
+				color='green'
+				:color-code='colorCode'
+			/>
+
+			<bundle-status
+				color='pink'
+				:color-code='colorCode'
+			/>
+			-->
+
 		</main>
 	</div>
 </template>

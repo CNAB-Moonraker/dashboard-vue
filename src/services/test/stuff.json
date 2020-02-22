@@ -154,5 +154,6 @@
 			}
 		}
 	],
-	"duffle": []
+	"duffle": [],
+	"dockerapp": []
 }

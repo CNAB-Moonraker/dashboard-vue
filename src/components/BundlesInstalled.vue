@@ -6,13 +6,18 @@
 			color: String,
 			'color-code': String,
 		},
+		computed: {
+			bundlesInstalled() {
+				return this.$store.getters.allClaims.length
+			},
+		},
 	}
 </script>
 
 <template>
 	<section :class='`bg_${color}_${colorCode} shadow_${color}_${colorCode}`' id='bundles-installed'>
 		<h2>Bundles Installed</h2>
-		<h1>{{data}}</h1>
+		<h1>{{bundlesInstalled}}</h1>
 	</section>
 </template>
 
