@@ -2,9 +2,15 @@
 	export default {
 		name: 'installers',
 		props: {
-			data: Object,
 			color: String,
 			'color-code': String,
+		},
+		computed: {
+			installers() {
+				const res = {}
+				for (const key in this.$store.state.claims) res[key] = this.$store.state.claims[key].length
+				return res
+			},
 		},
 	}
 </script>
@@ -13,12 +19,12 @@
 	<section :class='`bg_${color}_${colorCode} shadow_${color}_${colorCode}`' id='installers'>
 		<h2>Installers</h2>
 		<ul>
-			<li v-for='key in Object.keys(data)' :key='key'>
+			<li v-for='key in Object.keys(installers)' :key='key'>
 				<span>
 					{{key}}
 				</span>
 				<span>
-					{{data[key]}}
+					{{installers[key]}}
 				</span>
 			</li>
 		</ul>

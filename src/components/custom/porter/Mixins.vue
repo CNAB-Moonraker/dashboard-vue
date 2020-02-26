@@ -2,9 +2,26 @@
 	export default {
 		name: 'mixins',
 		props: {
-			data: Object,
 			color: String,
 			'color-code': String,
+		},
+		computed: {
+			mixins() {
+
+				return this.$store.state.mixins
+
+				// const mixins = {
+				// 	'kubernetes': 4,
+				// 	'terraform': 19,
+				// 	'aws': 16,
+				// 	'exec': 19,
+				// 	'azure': 20,
+				// 	'helm': 29,
+				// }
+				// return this.$store.getters.allClaims.reduce((acc, claim, i) => {
+
+				// }, {})
+			},
 		},
 	}
 </script>
@@ -13,12 +30,12 @@
 	<section :class='`bg_${color}_${colorCode} shadow_${color}_${colorCode}`' id='mixins'>
 		<h2>Mixins</h2>
 		<ul>
-			<li v-for='key in Object.keys(data)' :key='key'>
+			<li v-for='key in Object.keys(mixins)' :key='key'>
 				<span>
 					{{key}}
 				</span>
 				<span>
-					{{data[key]}}
+					{{mixins[key]}}
 				</span>
 			</li>
 		</ul>

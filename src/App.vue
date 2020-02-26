@@ -12,10 +12,10 @@
 		name: `app`,
 		components: {
 			BundlesInstalled,
-			// RecentBundles,
-			// Mixins,
-			// Installers,
-			// BundleStatus,
+			RecentBundles,
+			Mixins,
+			Installers,
+			BundleStatus,
 		},
 		data() {
 			return {
@@ -50,7 +50,6 @@
 				:color-code='colorCode'
 			/>
 
-			<!--
 			<recent-bundles
 				color='indigo'
 				:color-code='colorCode'
@@ -70,7 +69,6 @@
 				color='pink'
 				:color-code='colorCode'
 			/>
-			-->
 
 		</main>
 	</div>
@@ -129,8 +127,8 @@ body {
 		display: grid;
 		grid-gap: 2rem;
 		grid-template-areas:
-		'bi rb rb m'
-		'i i bs m';
+		'bi rb rb bs'
+		'i i m bs';
 
 		section {
 			border-radius: 4px;
