@@ -15,7 +15,6 @@ export default class Claim {
 	) {
 
 		if (
-			!source ||
 			!name ||
 			!revision ||
 			!created ||
@@ -50,7 +49,7 @@ class CommandResult {
 	) {
 
 		if (
-			!message ||
+			(!message && message !== "") ||
 			!action ||
 			!status
 		) throw new Error(`Invalid Command Result Object`)

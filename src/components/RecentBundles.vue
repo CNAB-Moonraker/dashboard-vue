@@ -2,9 +2,21 @@
 	export default {
 		name: `recent-bundles`,
 		props: {
-			data: Array,
 			color: String,
 			'color-code': String,
+		},
+		computed: {
+			recentBundles() {
+				return [...this.$store.getters.allClaims]
+					.sort((a, b) =>
+						new Date(a.modified).getTime() - new Date(b.modified).getTime()
+					)
+					.slice(0, 6)
+					.map(claim => ({
+						name: claim.name,
+						action: claim.result.action,
+					}))
+			},
 		},
 	}
 </script>
@@ -13,7 +25,7 @@
 	<section :class='`bg_${color}_${colorCode} shadow_${color}_${colorCode}`' id='RecentBundles'>
 		<h2>Recent Bundles</h2>
 		<ul>
-			<li v-for='item in data' :key='item.name'>
+			<li v-for='item in recentBundles' :key='item.name'>
 				<span>
 					{{item.name}}
 				</span>

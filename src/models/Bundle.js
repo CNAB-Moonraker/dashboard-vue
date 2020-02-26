@@ -25,7 +25,7 @@ export default class Bundle {
 			!schemaVersion ||
 			!name ||
 			!version ||
-			!description ||
+			(!description && description !== "") ||
 			!invocationImages ||
 			!parameters ||
 			!definitions ||

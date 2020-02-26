@@ -2,7 +2,6 @@
 	export default {
 		name: `bundles-installed`,
 		props: {
-			data: Number,
 			color: String,
 			'color-code': String,
 		},

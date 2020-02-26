@@ -1,6 +1,54 @@
 {
 	"porter": [
 		{
+			"name": "HELLO",
+			"revision": "01E1ZZZKWAKDZPVKDJR2JTZHDA",
+			"created": "2020-02-25T22:37:15.4445655-07:00",
+			"modified": "2020-02-25T22:37:16.1700308-07:00",
+			"bundle": {
+				"schemaVersion": "v1.0.0",
+				"name": "HELLO",
+				"version": "0.1.0",
+				"description": "An example Porter configuration",
+				"invocationImages": [
+					{
+						"imageType": "docker",
+						"image": "getporter/porter-hello-installer:0.1.0"
+					}
+				],
+				"parameters": {
+					"porter-debug": {
+						"definition": "porter-debug-parameter",
+						"description": "Print debug information from Porter when executing the bundle",
+						"destination": {
+							"env": "PORTER_DEBUG"
+						}
+					}
+				},
+				"definitions": {
+					"porter-debug-parameter": {
+						"default": false,
+						"description": "Print debug information from Porter when executing the bundle",
+						"type": "boolean"
+					}
+				},
+				"custom": {
+					"io.cnab.dependencies": null,
+					"sh.porter": {
+						"manifestDigest": "ee95a89223c0f14a1ffebbdf6a28b1f852124ee031b85eda7b152b2db536a144"
+					}
+				}
+			},
+			"result": {
+				"message": "",
+				"action": "install",
+				"status": "success"
+			},
+			"parameters": {
+				"porter-debug": false
+			}
+		},
+		{
 			"name": "prod1",
 			"revision": "01DZR5ASQR2WJ5X78BCD3EXNFP",
 			"created": "2020-01-29T08:05:26.361119647Z",
