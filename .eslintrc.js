@@ -71,7 +71,10 @@ module.exports = {
 		"prefer-const": 1,
 		"prefer-template": 1,
 		"quotes": 0,
-		"semi": 0,
+		"semi": [
+			1,
+			"never"
+		],
 		"spaced-comment": [
 			1,
 			"always"

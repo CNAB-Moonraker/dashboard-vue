@@ -1,13 +1,13 @@
 {
 	"porter": [
 		{
-			"name": "HELLO",
-			"revision": "01E1ZZZKWAKDZPVKDJR2JTZHDA",
-			"created": "2020-02-25T22:37:15.4445655-07:00",
-			"modified": "2020-02-25T22:37:16.1700308-07:00",
+			"name": "helloporter",
+			"revision": "01E291C6XD4FB4Y4X4V2QTBEYJ",
+			"created": "2020-02-29T10:54:46.5576178-07:00",
+			"modified": "2020-02-29T10:54:47.3415117-07:00",
 			"bundle": {
 				"schemaVersion": "v1.0.0",
-				"name": "HELLO",
+				"name": "helloporter",
 				"version": "0.1.0",
 				"description": "An example Porter configuration",
 				"invocationImages": [
@@ -35,7 +35,7 @@
 				"custom": {
 					"io.cnab.dependencies": null,
 					"sh.porter": {
-						"manifestDigest": "ee95a89223c0f14a1ffebbdf6a28b1f852124ee031b85eda7b152b2db536a144"
+						"manifestDigest": "bc7527cc58120ce8e6cabeea533563c19c90ae56423ff850829bac0999b0c5fa"
 					}
 				}
 			},
@@ -47,161 +47,49 @@
 			"parameters": {
 				"porter-debug": false
 			}
-		},
+		}
+	],
+	"duffle": [
 		{
-			"name": "prod1",
-			"revision": "01DZR5ASQR2WJ5X78BCD3EXNFP",
-			"created": "2020-01-29T08:05:26.361119647Z",
-			"modified": "2020-01-29T08:05:26.392343444Z",
+			"name": "helloworld",
+			"revision": "01E2919A4MA3FM836ZGMN4J69N",
+			"created": "2020-02-29T10:53:11.6384293-07:00",
+			"modified": "2020-02-29T10:53:12.3405966-07:00",
 			"bundle": {
-				"schemaVersion": "v1.0.0",
-				"name": "HELLO",
-				"version": "0.1.0",
-				"description": "An example Porter configuration",
+				"schemaVersion": "v1.0.0-WD",
+				"name": "helloworld",
+				"version": "0.1.1",
+				"description": "A short description of your bundle",
+				"keywords": [
+					"helloworld",
+					"cnab",
+					"tutorial"
+				],
+				"maintainers": [
+					{
+						"name": "John Doe",
+						"email": "john.doe@example.com",
+						"url": "https://example.com"
+					},
+					{
+						"name": "Jane Doe",
+						"email": "jane.doe@example.com",
+						"url": "https://example.com"
+					}
+				],
 				"invocationImages": [
 					{
 						"imageType": "docker",
-						"image": "deislabs/porter-hello:latest",
-						"contentDigest": "sha256:085b562e5637757ca88b6a4725e7990aa6908e2b295d7e26adaf9fc1c92c8ec3",
-						"size": 1372,
-						"mediaType": "application/vnd.docker.distribution.manifest.v2+json"
+						"image": "deislabs/helloworld-cnab:eb8273a80bbaa8fd50b42c06c185d846680ce952"
 					}
-				],
-				"parameters": {
-					"porter-debug": {
-						"definition": "porter-debug-parameter",
-						"description": "Print debug information from Porter when executing the bundle",
-						"destination": {
-							"env": "PORTER_DEBUG"
-						}
-					}
-				},
-				"definitions": {
-					"porter-debug-parameter": {
-						"default": false,
-						"description": "Print debug information from Porter when executing the bundle",
-						"type": "boolean"
-					}
-				},
-				"custom": {
-					"io.cnab.dependencies": null,
-					"sh.porter": {
-						"manifestDigest": "5d32a7c1c6a38c9583e2345da59b1bef23e46a97bb51025735d3c334d451ce2c"
-					}
-				}
+				]
 			},
 			"result": {
-				"message": "cannot create container: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?",
+				"message": "container exit code: 1, message: \u003cnil\u003e",
 				"action": "install",
 				"status": "failure"
-			},
-			"parameters": {
-				"porter-debug": false
-			}
-		},
-		{
-			"name": "wordpress",
-			"revision": "01DZR5DW8FGC5A5YRYVHRDWTGV",
-			"created": "2020-01-29T08:07:07.258539639Z",
-			"modified": "2020-01-29T08:07:07.279004132Z",
-			"bundle": {
-				"schemaVersion": "v1.0.0",
-				"name": "HELLO",
-				"version": "0.1.0",
-				"description": "An example Porter configuration",
-				"invocationImages": [
-					{
-						"imageType": "docker",
-						"image": "deislabs/porter-hello:latest",
-						"contentDigest": "sha256:085b562e5637757ca88b6a4725e7990aa6908e2b295d7e26adaf9fc1c92c8ec3",
-						"size": 1372,
-						"mediaType": "application/vnd.docker.distribution.manifest.v2+json"
-					}
-				],
-				"parameters": {
-					"porter-debug": {
-						"definition": "porter-debug-parameter",
-						"description": "Print debug information from Porter when executing the bundle",
-						"destination": {
-							"env": "PORTER_DEBUG"
-						}
-					}
-				},
-				"definitions": {
-					"porter-debug-parameter": {
-						"default": false,
-						"description": "Print debug information from Porter when executing the bundle",
-						"type": "boolean"
-					}
-				},
-				"custom": {
-					"io.cnab.dependencies": null,
-					"sh.porter": {
-						"manifestDigest": "5d32a7c1c6a38c9583e2345da59b1bef23e46a97bb51025735d3c334d451ce2c"
-					}
-				}
-			},
-			"result": {
-				"message": "cannot create container: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?",
-				"action": "install",
-				"status": "failure"
-			},
-			"parameters": {
-				"porter-debug": false
-			}
-		},
-		{
-			"name": "prod2",
-			"revision": "01DZR5DF9R3Y84413MXGDN6GXG",
-			"created": "2020-01-29T08:06:53.987310271Z",
-			"modified": "2020-01-29T08:06:54.008553535Z",
-			"bundle": {
-				"schemaVersion": "v1.0.0",
-				"name": "HELLO",
-				"version": "0.1.0",
-				"description": "An example Porter configuration",
-				"invocationImages": [
-					{
-						"imageType": "docker",
-						"image": "deislabs/porter-hello:latest",
-						"contentDigest": "sha256:085b562e5637757ca88b6a4725e7990aa6908e2b295d7e26adaf9fc1c92c8ec3",
-						"size": 1372,
-						"mediaType": "application/vnd.docker.distribution.manifest.v2+json"
-					}
-				],
-				"parameters": {
-					"porter-debug": {
-						"definition": "porter-debug-parameter",
-						"description": "Print debug information from Porter when executing the bundle",
-						"destination": {
-							"env": "PORTER_DEBUG"
-						}
-					}
-				},
-				"definitions": {
-					"porter-debug-parameter": {
-						"default": false,
-						"description": "Print debug information from Porter when executing the bundle",
-						"type": "boolean"
-					}
-				},
-				"custom": {
-					"io.cnab.dependencies": null,
-					"sh.porter": {
-						"manifestDigest": "5d32a7c1c6a38c9583e2345da59b1bef23e46a97bb51025735d3c334d451ce2c"
-					}
-				}
-			},
-			"result": {
-				"message": "cannot create container: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?",
-				"action": "install",
-				"status": "failure"
-			},
-			"parameters": {
-				"porter-debug": false
 			}
 		}
 	],
-	"duffle": [],
 	"dockerapp": []
 }
