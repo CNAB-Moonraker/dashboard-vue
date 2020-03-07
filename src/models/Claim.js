@@ -14,15 +14,20 @@ export default class Claim {
 		source
 	) {
 
-		if (
-			!name ||
-			!revision ||
-			!created ||
-			!modified ||
-			!bundle ||
-			!result ||
-			!parameters
-		) throw new Error(`Invalid Claim from "${source}": "${name}"`)
+		const missing = []
+
+		if (!name) missing.push('name')
+		if (!revision) missing.push('revision')
+		if (!created) missing.push('created')
+		if (!modified) missing.push('modified')
+		if (!bundle) missing.push('bundle')
+		if (!result) missing.push('result')
+
+		if (missing.length){
+			let errMsg = `Invalid Claim from "${source}":\nError in the following keys:\n`
+			missing.forEach(key => errMsg += `${key}\n`)
+			throw new Error(errMsg)
+		}
 
 		try {
 			this.source = source
@@ -34,7 +39,7 @@ export default class Claim {
 			this.result = new CommandResult(result)
 			this.parameters = parameters
 		} catch (error) {
-			throw new Error(`Invalid Claim from "${source}": "${name}"\n${error.message}`)
+			throw new Error(`Invalid Key from "${source}": "${name}"\n${error.message}`)
 		}
 	}
 }

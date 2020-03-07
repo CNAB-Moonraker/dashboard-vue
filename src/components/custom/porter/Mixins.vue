@@ -22,6 +22,8 @@
 
 				// }, {})
 			},
+			minW: () => 4,
+			minH: () => 3,
 		},
 	}
 </script>
@@ -44,12 +46,8 @@
 
 <style lang='scss' scoped>
 #mixins {
-	position: relative;
-	grid-area: m;
-
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
 	align-items: center;
 
 	ul {

@@ -14,19 +14,15 @@
 				}
 				for (const claim of this.$store.getters.allClaims)
 				{
-					switch (claim.result.status) {
-						case `failure`:
-							res['Failed']++
-							break
-						case `success`:
-							if (claim.result.action === 'install') res['Installed']++
-							break
-						default:
-							break
-					}
+					const { status, action } = claim.result
+					if (status === `failure`) res['Failed']++
+					else if (action === `install` && status === `success`) res[`Installed`]++
+					else res[`In Progress`]++
 				}
 				return res
 			},
+			minW: () => 4,
+			minH: () => 6,
 		},
 	}
 </script>
@@ -43,12 +39,8 @@
 
 <style lang='scss' scoped>
 #bundle-status {
-	position: relative;
-	grid-area: bs;
-
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
 	align-items: center;
 
 	div {

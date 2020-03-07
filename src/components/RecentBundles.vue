@@ -17,6 +17,8 @@
 						action: claim.result.action,
 					}))
 			},
+			minW: () => 4,
+			minH: () => 3,
 		},
 	}
 </script>
@@ -39,12 +41,8 @@
 
 <style lang='scss' scoped>
 #RecentBundles {
-	position: relative;
-	grid-area: rb;
-
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
 	align-items: center;
 
 	ul {

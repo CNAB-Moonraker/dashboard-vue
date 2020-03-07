@@ -11,6 +11,8 @@
 				for (const key in this.$store.state.claims) res[key] = this.$store.state.claims[key].length
 				return res
 			},
+			minW: () => 4,
+			minH: () => 3,
 		},
 	}
 </script>
@@ -33,12 +35,8 @@
 
 <style lang='scss' scoped>
 #installers {
-	position: relative;
-	grid-area: i;
-
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
 	align-items: center;
 
 	ul {

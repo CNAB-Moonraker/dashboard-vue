@@ -7,8 +7,10 @@
 		},
 		computed: {
 			bundlesInstalled() {
-				return this.$store.getters.allClaims.length
+				return this.$store.getters.allClaims.filter(claim => claim.result.status !== `failure`).length
 			},
+			minW: () => 4,
+			minH: () => 3,
 		},
 	}
 </script>
@@ -22,12 +24,8 @@
 
 <style lang='scss' scoped>
 #bundles-installed {
-	position: relative;
-	grid-area: bi;
-
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
 	align-items: center;
 
 	h1 {
