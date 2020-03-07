@@ -16,7 +16,7 @@
 </script>
 
 <template>
-	<section :class='`bg_${color}_${colorCode} shadow_${color}_${colorCode}`' id='bundles-installed'>
+	<section :class='`border_left_${color}_${colorCode}`' id='bundles-installed'>
 		<h2>Bundles Installed</h2>
 		<h1>{{bundlesInstalled}}</h1>
 	</section>

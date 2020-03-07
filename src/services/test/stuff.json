@@ -47,6 +47,102 @@
 			"parameters": {
 				"porter-debug": false
 			}
+		},
+		{
+			"name": "HELLO",
+			"revision": "01E2V8P9T7RWSPWPCN72KN0MM4",
+			"created": "2020-03-07T12:48:57.0631226-07:00",
+			"modified": "2020-03-07T12:48:57.7993877-07:00",
+			"bundle": {
+				"schemaVersion": "v1.0.0",
+				"name": "HELLO",
+				"version": "0.1.0",
+				"description": "An example Porter configuration",
+				"invocationImages": [
+					{
+						"imageType": "docker",
+						"image": "getporter/porter-hello-installer:0.1.0"
+					}
+				],
+				"parameters": {
+					"porter-debug": {
+						"definition": "porter-debug-parameter",
+						"description": "Print debug information from Porter when executing the bundle",
+						"destination": {
+							"env": "PORTER_DEBUG"
+						}
+					}
+				},
+				"definitions": {
+					"porter-debug-parameter": {
+						"default": false,
+						"description": "Print debug information from Porter when executing the bundle",
+						"type": "boolean"
+					}
+				},
+				"custom": {
+					"io.cnab.dependencies": null,
+					"sh.porter": {
+						"manifestDigest": "ee95a89223c0f14a1ffebbdf6a28b1f852124ee031b85eda7b152b2db536a144"
+					}
+				}
+			},
+			"result": {
+				"message": "",
+				"action": "install",
+				"status": "success"
+			},
+			"parameters": {
+				"porter-debug": false
+			}
+		},
+		{
+			"name": "wowza",
+			"revision": "01E2V8TBY8X0E52SQY9M8JEKB5",
+			"created": "2020-03-07T12:51:10.3968167-07:00",
+			"modified": "2020-03-07T12:51:11.048328-07:00",
+			"bundle": {
+				"schemaVersion": "v1.0.0",
+				"name": "wowza",
+				"version": "0.1.0",
+				"description": "An example Porter configuration",
+				"invocationImages": [
+					{
+						"imageType": "docker",
+						"image": "getporter/porter-hello-installer:0.1.0"
+					}
+				],
+				"parameters": {
+					"porter-debug": {
+						"definition": "porter-debug-parameter",
+						"description": "Print debug information from Porter when executing the bundle",
+						"destination": {
+							"env": "PORTER_DEBUG"
+						}
+					}
+				},
+				"definitions": {
+					"porter-debug-parameter": {
+						"default": false,
+						"description": "Print debug information from Porter when executing the bundle",
+						"type": "boolean"
+					}
+				},
+				"custom": {
+					"io.cnab.dependencies": null,
+					"sh.porter": {
+						"manifestDigest": "03036b9be14f0b28c71bb23e869ea37b911891902014a2085fa282c68a50b577"
+					}
+				}
+			},
+			"result": {
+				"message": "",
+				"action": "install",
+				"status": "success"
+			},
+			"parameters": {
+				"porter-debug": false
+			}
 		}
 	],
 	"duffle": [
