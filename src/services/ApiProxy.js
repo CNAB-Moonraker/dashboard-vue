@@ -6,7 +6,6 @@ export default class ApiProxy {
 	 */
 	static async getClaims() {
 		try {
-			console.log(`test`)
 			const data = await fetch(`/claims`).then(r => r.json())
 			const claims = {}
 			for (const key of Object.keys(data)) {
