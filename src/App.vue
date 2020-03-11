@@ -4,12 +4,11 @@
 
 	import VueGridLayout from 'vue-grid-layout'
 
-	import BundlesInstalled from '@/components/BundlesInstalled.vue'
-	import RecentBundles from '@/components/RecentBundles.vue'
-	import Installers from '@/components/Installers.vue'
-	import BundleStatus from '@/components/BundleStatus.vue'
+	import BundlesInstalled from '@/components/tiles/BundlesInstalled.vue'
+	import RecentCommands from '@/components/tiles/RecentCommands.vue'
+	import Installers from '@/components/tiles/Installers.vue'
 
-	import Mixins from '@/components/custom/porter/Mixins.vue'
+	// import Mixins from '@/components/custom/porter/Mixins.vue'
 
 	import logo from '@/img/MOONRAKER.svg'
 
@@ -19,10 +18,9 @@
 			GridLayout: VueGridLayout.GridLayout,
 			GridItem: VueGridLayout.GridItem,
 			BundlesInstalled,
-			RecentBundles,
+			RecentCommands,
 			Installers,
-			BundleStatus,
-			Mixins,
+			// Mixins,
 		},
 		data() {
 			return {
@@ -57,10 +55,9 @@
 
 				const tiles = [
 					BundlesInstalled,
-					RecentBundles,
+					RecentCommands,
 					Installers,
-					BundleStatus,
-					Mixins,
+					// Mixins,
 				]
 
 				let curX = 0
@@ -68,7 +65,6 @@
 				tiles.forEach((tile, i) => {
 
 					const c = Math.floor(Math.random() * 15)
-					console.log(c)
 
 					const mw = tile.computed.minW() || 1
 					const mh = tile.computed.minH() || 1
@@ -96,6 +92,12 @@
 			}
 		},
 		methods: {
+			refresh() {
+				if (confirm(`Pressing OK will reset all tiles on the dashboard. Are you sure?`)) {
+					localStorage.clear()
+					window.location.reload()
+				}
+			},
 			movedEvent(){
 				localStorage.grid = JSON.stringify(this.layout)
 			},
@@ -112,8 +114,9 @@
 <template>
 	<div id='app'>
 		<header>
-			<img :src='logo' >
+			<img id='moonraker-logo' :src='logo'>
 			<h4>Moonraker</h4>
+			<i id='refresh-button' class='material-icons' @click='refresh' alt='test'>refresh</i>
 		</header>
 		<main>
 			<grid-layout
@@ -157,7 +160,8 @@
 @import url('scss/color.scss');
 
 html {
-	background-color: #263238;
+	// background-color: #263238;
+	background-color: #383d43;
 }
 
 * {
@@ -190,6 +194,8 @@ body {
 	color: white;
 
 	header {
+		position: relative;
+
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -223,6 +229,21 @@ body {
 
 	section {
 		height: 100%;
+		background-color: #43484f;
+		// overflow-y: scroll;
 	}
 }
+
+#refresh-button {
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+	cursor: pointer;
+	transition: 1s ease-in-out;
+}
+
+#refresh-button:hover {
+	transform: rotate(360deg);
+}
+
 </style>
