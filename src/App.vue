@@ -1,14 +1,12 @@
 <script>
 /* eslint-disable vue/no-unused-components */
+
 	import Vue from 'vue'
-
 	import VueGridLayout from 'vue-grid-layout'
-
 	import BundlesInstalled from '@/components/tiles/BundlesInstalled.vue'
 	import RecentCommands from '@/components/tiles/RecentCommands.vue'
 	import Installers from '@/components/tiles/Installers.vue'
-
-	// import Mixins from '@/components/custom/porter/Mixins.vue'
+	import Mixins from '@/components/tiles/custom/porter/Mixins.vue'
 
 	import logo from '@/img/MOONRAKER.svg'
 
@@ -20,7 +18,7 @@
 			BundlesInstalled,
 			RecentCommands,
 			Installers,
-			// Mixins,
+			Mixins,
 		},
 		data() {
 			return {
@@ -57,7 +55,7 @@
 					BundlesInstalled,
 					RecentCommands,
 					Installers,
-					// Mixins,
+					Mixins,
 				]
 
 				let curX = 0

@@ -1,31 +1,62 @@
 <script>
-	import VueApexCharts from 'apexcharts'
+	// import VueApexCharts from 'apexcharts'
+	import VueApexCharts from 'vue-apexcharts'
 
 	export default {
 		name: `donut-chart`,
+		props: {
+			series: {
+				type: Array,
+			},
+			labels: {
+				type: Array,
+			},
+		},
 		components: {
 			apexchart: VueApexCharts,
 		},
 		data() {
 			return {
-				series: [44, 55, 41, 17, 15],
-				chartOptions: {
-					chart: {
-						type: 'donut',
-					},
-					responsive: [
-						{
-							breakpoint: 480,
-							options: {
-								chart: {
-									width: 200,
-								},
-								legend: {
-									position: 'bottom',
-								},
-							},
-						},
+				options: {
+					colors: [
+						`#f44336`,
+						`#00bcd4`,
+						`#9c27b0`,
+						`#009688`,
+						`#03a9f4`,
+						`#4caf50`,
+						`#e91e63`,
+						`#673ab7`,
+						`#ff5722`,
+						`#3f51b5`,
+						`#2196f3`,
+						`#8bc34a`,
+						`#ffeb3b`,
+						`#cddc39`,
+						`#ffc107`,
+						`#ff9800`,
 					],
+					labels: this.labels,
+					legend: {
+						fontSize: `20px`,
+						labels: {
+							colors: `#fff`,
+						},
+					},
+					chart: {
+						width: 200,
+					},
+					stroke: {
+						width: 0,
+					},
+					dataLabels: {
+						style: {
+							borderWidth: 0,
+						},
+						formatter: (value) => {
+							return value / 10
+						},
+					},
 				},
 			}
 		},
@@ -34,7 +65,7 @@
 
 <template>
 	<div id='donut-chart'>
-		<apexchart type='donut' :options='chartOptions' :series='series'></apexchart>
+		<apexchart type='donut' :series='series' height='500' :options='options'></apexchart>
 	</div>
 </template>
 
