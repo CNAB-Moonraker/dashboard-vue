@@ -3,7 +3,7 @@
 		name: `recent-commands`,
 		props: {
 			color: String,
-			'color-code': String,
+			colorCode: String,
 		},
 		computed: {
 			recentCommands() {
@@ -33,8 +33,10 @@
 						return res
 					})
 			},
-			minW: () => 4,
-			minH: () => 3,
+			minW: () => 5,
+			minH: () => 2,
+			defaultW: () => 8,
+			defaultH: () => 5,
 		},
 	}
 </script>

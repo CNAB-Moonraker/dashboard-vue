@@ -1,37 +1,93 @@
 <script>
-	import DonutChart from '@/components/DonutChart.vue'
+	import PieChart from '@/components/PieChart.vue'
+
+	import { colors } from '@/util'
 
 	export default {
 		name: 'mixins',
 		components: {
-			DonutChart,
+			PieChart,
 		},
 		props: {
 			color: String,
-			'color-code': String,
+			colorCode: String,
+		},
+		data: () => ({
+			claims: [],
+			chartData: {
+				labels: [],
+				datasets: [
+					{
+						backgroundColor: colors,
+						data: [],
+					},
+				],
+			},
+			options: {
+				responsive: true,
+				maintainAspectRatio: false,
+				legend: {
+					position: 'right',
+					labels: {
+						fontSize: 20,
+						fontColor: '#fff',
+					},
+				},
+				layout: {
+					padding: {
+						top: 10,
+						right: 10,
+						bottom: 10,
+						left: 10,
+					},
+				},
+			},
+		}),
+		mounted() {
+			this.getAllClaims()
+			this.getChartData()
+		},
+		methods: {
+			getChartData() {
+				this.chartData = this.claims.reduce((acc, item) => {
+
+					const { custom } = item.bundle
+					if (!custom || !('sh.porter' in custom) || !('mixins' in custom['sh.porter'])) return acc
+
+					const { mixins } = custom['sh.porter']
+
+					const keys = Object.keys(mixins)
+					const values = Object.values(mixins)
+
+					keys.forEach(key => {
+						let i = acc.labels.indexOf(key)
+						if (i < 0) {
+							acc.labels.push(key)
+							acc.datasets[0].data.push(0)
+							i = acc.labels.length - 1
+						}
+
+						acc.datasets[0].data[i]++
+					})
+
+					return acc
+				}, this.chartData)
+			},
+			getAllClaims() {
+				this.claims = this.$store.getters.allClaims
+			},
 		},
 		computed: {
-			mixins() {
-				return this.$store.getters.allClaims.reduce((acc, item) => {
-					if (!item.bundle.custom || !(item.bundle.custom['sh.porter']) || !('mixins' in item.bundle.custom['sh.porter'])) return acc
-					const keys = Object.keys(item.bundle.custom['sh.porter'].mixins)
-					keys.forEach(key => {
-						if (key in acc) acc[key] = acc[key] + 1
-						else acc[key] = 1
-					})
-					return acc
-				}, {})
+			minW: () => 2,
+			minH: () => 1,
+			defaultW: () => 4,
+			defaultH: () => 5,
+			myStyles () {
+				return {
+					position: `relative`,
+					height: `${this.height}px`,
+				}
 			},
-			series() {
-				const { mixins } = this
-				return Object.keys(mixins).map(key => mixins[key])
-			},
-			labels() {
-				const { mixins } = this
-				return Object.keys(mixins)
-			},
-			minW: () => 4,
-			minH: () => 3,
 		},
 	}
 </script>
@@ -39,27 +95,27 @@
 <template>
 	<section :class='`border_left_${color}_${colorCode}`' id='mixins'>
 		<h2>Mixins</h2>
-		<donut-chart :series='series' :labels='labels' ></donut-chart>
+		<pie-chart v-if='claims.length' :styles='myStyles' :chart-data='chartData' :options='options'></pie-chart>
 	</section>
 </template>
 
 <style lang='scss' scoped>
-#mixins {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-
-	ul {
-		list-style: none;
-		padding: 0;
-		margin: 0;
-		width: 80%;
-	}
-
-	li {
+	#mixins {
 		display: flex;
+		flex-direction: column;
 		align-items: center;
-		justify-content: space-between;
+
+		ul {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+			width: 80%;
+		}
+
+		li {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
 	}
-}
 </style>

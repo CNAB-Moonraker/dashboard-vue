@@ -8,14 +8,6 @@ export default new Vuex.Store({
 	state: {
 		lastUpdated: Date.now(),
 		claims: {},
-		mixins: {
-			'kubernetes': 4,
-			'terraform': 19,
-			'aws': 16,
-			'exec': 19,
-			'azure': 20,
-			'helm': 29,
-		},
 	},
 	mutations: {
 		setClaims(state, claims) {
