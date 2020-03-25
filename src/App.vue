@@ -1,16 +1,16 @@
 <script>
 /* eslint-disable vue/no-unused-components */
+
 	import Vue from 'vue'
-
 	import VueGridLayout from 'vue-grid-layout'
-
 	import BundlesInstalled from '@/components/tiles/BundlesInstalled.vue'
 	import RecentCommands from '@/components/tiles/RecentCommands.vue'
 	import Installers from '@/components/tiles/Installers.vue'
-
-	// import Mixins from '@/components/custom/porter/Mixins.vue'
+	import Mixins from '@/components/tiles/custom/porter/Mixins.vue'
 
 	import logo from '@/img/MOONRAKER.svg'
+
+	import { getColorName } from '@/util'
 
 	export default {
 		name: `app`,
@@ -20,47 +20,30 @@
 			BundlesInstalled,
 			RecentCommands,
 			Installers,
-			// Mixins,
+			Mixins,
 		},
-		data() {
-			return {
-				logo,
-				colorCode: '500',
-				layout: [],
-			}
-		},
-		mounted() {
-			this.$store.dispatch('getClaims')
+		data: () => ({
+			logo,
+			colorCode: '500',
+			layout: [],
+			menuOpen: false,
+		}),
+		async mounted() {
+			await this.$store.dispatch('getClaims')
 
 			if (localStorage.grid) this.layout = JSON.parse(localStorage.grid)
 			else {
 
-				const colors = [
-					`red`,
-					`pink`,
-					`purple`,
-					`deep_purple`,
-					`indigo`,
-					`blue`,
-					`light_blue`,
-					`cyan`,
-					`teal`,
-					`green`,
-					`light_green`,
-					`lime`,
-					`amber`,
-					`orange`,
-					`deep_orange`,
-				]
-
 				const tiles = [
-					BundlesInstalled,
+					Mixins,
 					RecentCommands,
 					Installers,
-					// Mixins,
+					BundlesInstalled,
 				]
 
 				let curX = 0
+
+				const colorNames = []
 
 				tiles.forEach((tile, i) => {
 
@@ -68,32 +51,38 @@
 
 					const mw = tile.computed.minW() || 1
 					const mh = tile.computed.minH() || 1
+					const dw = tile.computed.defaultW() || 1
+					const dh = tile.computed.defaultH() || 1
 
 					if (curX + mw > 12) curX = 0
+
+					colorNames.push(getColorName(colorNames))
+
+					console.log(colorNames[i])
 
 					this.layout.push({
 						x: curX,
 						y: 0,
-						w: mw,
-						h: mh,
+						w: dw,
+						h: dh,
 						i,
 						minW: mw,
 						minH: mh,
 						comp: tile.name,
 						props: {
-							color: colors[c],
+							color: colorNames[i],
 							colorCode: this.colorCode,
 						},
 					})
 
-					curX += mw
+					curX += dw
 
 				})
 			}
 		},
 		methods: {
 			refresh() {
-				if (confirm(`Pressing OK will reset all tiles on the dashboard. Are you sure?`)) {
+				if (confirm(`This will change the current dashboard layout to the default. Proceed?`)) {
 					localStorage.clear()
 					window.location.reload()
 				}
@@ -116,7 +105,14 @@
 		<header>
 			<img id='moonraker-logo' :src='logo'>
 			<h4>Moonraker</h4>
-			<i id='refresh-button' class='material-icons' @click='refresh' alt='test'>refresh</i>
+			<i id='settings-button' :class='menuOpen ? `material-icons active` : `material-icons`' @click='menuOpen = !menuOpen' alt='test'>settings</i>
+
+			<div id='nav-menu' :class='menuOpen ? `active` : ``'>
+				<div class='dropdown-content'  @click='refresh'>
+					Reset Layout
+				</div>
+			</div>
+
 		</header>
 		<main>
 			<grid-layout
@@ -158,6 +154,11 @@
 <style lang='scss'>
 @import url('https://fonts.googleapis.com/css?family=Ubuntu&display=swap');
 @import url('scss/color.scss');
+
+:root {
+	--drawer-width: 300px;
+	--drawer-trans: all .35s ease-in-out;
+}
 
 html {
 	// background-color: #263238;
@@ -234,16 +235,48 @@ body {
 	}
 }
 
-#refresh-button {
+#nav-menu {
+	position: fixed;
+	top: 0;
+	right: calc(var(--drawer-width) * -1);
+	z-index: 1000;
+	height: 100vh;
+	width: var(--drawer-width);
+	background-color: #43484f;
+	transition: var(--drawer-trans);
+	padding-top: 3rem;
+}
+
+#nav-menu.active {
+	right: 0;
+	box-shadow: 0 0 50px 0 rgba(0,0,0,0.5);
+}
+
+#settings-button {
 	position: absolute;
 	top: 1rem;
 	right: 1rem;
 	cursor: pointer;
-	transition: 1s ease-in-out;
+	transition: var(--drawer-trans);
+	z-index: 1001;
 }
 
-#refresh-button:hover {
-	transform: rotate(360deg);
+#settings-button.active {
+	right: calc(var(--drawer-width) - 24px - 1rem);
+}
+
+/* Links inside the dropdown */
+.dropdown-content {
+	color: white;
+	text-decoration: none;
+	padding: 1rem;
+	margin-right: 2px;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content:hover {
+	cursor: pointer;
+	background-color: #535963;
 }
 
 </style>

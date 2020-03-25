@@ -143,6 +143,412 @@
 			"parameters": {
 				"porter-debug": false
 			}
+		},
+		{
+			"name": "az-iot",
+			"revision": "01DMGMQD3TTBDQCP1JA7Z447GP",
+			"created": "2019-09-11T12:07:51.136582-05:00",
+			"modified": "2019-09-11T12:07:52.570435-05:00",
+			"bundle": {
+				"schemaVersion": "v1.0.0-WD",
+				"name": "az-iot",
+				"version": "0.1.0",
+				"description": "An example Porter configuration",
+				"invocationImages": [
+					{
+						"imageType": "docker",
+						"image": "porter-hello:latest"
+					}
+				],
+				"actions": {
+					"help": {
+						"stateless": true,
+						"description": "Print an help message to the standard output"
+					}
+				},
+				"parameters": {
+					"porter-debug": {
+						"definition": "porter-debug",
+						"description": "Print debug information from Porter when executing the bundle",
+						"destination": {
+							"env": "PORTER_DEBUG"
+						}
+					}
+				},
+				"definitions": {
+					"porter-debug": {
+						"default": false,
+						"description": "Print debug information from Porter when executing the bundle",
+						"type": "boolean"
+					}
+				},
+				"custom": {
+					"io.cnab.dependencies": null,
+					"sh.porter": {
+						"manifestDigest": "97e461552dcdcc8c858c632364cd5576ec46245f0f2a8f0b95058bba077ed933",
+						"mixins": {
+							"az": {},
+							"arm": {},
+							"exec": {},
+							"kubernetes": {}
+						}
+					}
+				}
+			},
+			"result": {
+				"message": "",
+				"action": "install",
+				"status": "success"
+			},
+			"parameters": {
+				"porter-debug": false
+			}
+		},
+		{
+			"name": "mycowsay",
+			"revision": "01DP42RBKP60VJ04KQSPY8SV3H",
+			"created": "2019-10-01T11:34:18.417806-05:00",
+			"modified": "2019-10-01T11:34:19.894852-05:00",
+			"bundle": {
+				"schemaVersion": "v1.0.0-WD",
+				"name": "mycowsay",
+				"version": "0.1.0",
+				"description": "An example Porter configuration",
+				"invocationImages": [
+					{
+						"imageType": "docker",
+						"image": "porter-mycowsay:latest"
+					}
+				],
+				"parameters": {
+					"porter-debug": {
+						"definition": "porter-debug",
+						"description": "Print debug information from Porter when executing the bundle",
+						"destination": {
+							"env": "PORTER_DEBUG"
+						}
+					}
+				},
+				"definitions": {
+					"porter-debug": {
+						"default": false,
+						"description": "Print debug information from Porter when executing the bundle",
+						"type": "boolean"
+					}
+				},
+				"custom": {
+					"io.cnab.dependencies": null,
+					"sh.porter": {
+						"manifestDigest": "24ade6c11fe5becde62dfbb4d72349a47527ebd190f458dd62ef0773824b731c",
+						"mixins": {
+							"exec": {}
+						}
+					}
+				}
+			},
+			"result": {
+				"message": "",
+				"action": "install",
+				"status": "success"
+			},
+			"parameters": {
+				"porter-debug": false
+			}
+		},
+		{
+			"name": "porter-wordpress",
+			"revision": "01DSDVVGFXXBVP7546GD52SKQD",
+			"created": "2019-11-11T12:33:04.519549-06:00",
+			"modified": "2019-11-11T12:33:12.957708-06:00",
+			"bundle": {
+				"schemaVersion": "v1.0.0",
+				"name": "wordpress",
+				"version": "0.1.1",
+				"description": "",
+				"invocationImages": [
+					{
+						"imageType": "docker",
+						"image": "deislabs/porter-wordpress:v0.1.1",
+						"contentDigest": "sha256:dab00fc5abe26f5e084d5dc7f88145d7c4be2e3fc0a022fcb452261bd87350a3",
+						"size": 2006,
+						"mediaType": "application/vnd.docker.distribution.manifest.v2+json"
+					}
+				],
+				"actions": {
+					"ping": {
+						"modifies": true,
+						"description": "ping"
+					}
+				},
+				"parameters": {
+					"namespace": {
+						"definition": "namespace",
+						"destination": {
+							"env": "NAMESPACE"
+						}
+					},
+					"porter-debug": {
+						"definition": "porter-debug",
+						"description": "Print debug information from Porter when executing the bundle",
+						"destination": {
+							"env": "PORTER_DEBUG"
+						}
+					},
+					"wordpress-name": {
+						"definition": "wordpress-name",
+						"destination": {
+							"env": "WORDPRESS_NAME"
+						}
+					},
+					"wordpress-password": {
+						"definition": "wordpress-password",
+						"destination": {
+							"env": "WORDPRESS-PASSWORD"
+						},
+						"required": true
+					}
+				},
+				"credentials": {
+					"kubeconfig": {
+						"path": "/root/.kube/config",
+						"required": true
+					}
+				},
+				"outputs": {
+					"wordpress-password": {
+						"definition": "wordpress-password",
+						"applyTo": [
+							"install",
+							"upgrade"
+						],
+						"description": "The Wordpress installation password",
+						"path": "/cnab/app/outputs/wordpress-password"
+					}
+				},
+				"definitions": {
+					"namespace": {
+						"default": "",
+						"type": "string"
+					},
+					"porter-debug": {
+						"default": false,
+						"description": "Print debug information from Porter when executing the bundle",
+						"type": "boolean"
+					},
+					"wordpress-name": {
+						"default": "porter-ci-wordpress",
+						"type": "string"
+					},
+					"wordpress-password": {
+						"type": "string",
+						"writeOnly": true
+					}
+				},
+				"requiredExtensions": [
+					"io.cnab.dependencies"
+				],
+				"custom": {
+					"io.cnab.dependencies": {
+						"requires": {
+							"mysql": {
+								"bundle": "deislabs/porter-mysql-bundle:v0.1.1"
+							}
+						}
+					},
+					"sh.porter": {
+						"manifestDigest": "4c563f02f929b1d1e91dbe14df85370ca4d2a2c08707c58d3c7dfad814b6a3dc",
+						"mixins": {
+							"exec": {},
+							"helm": {}
+						}
+					}
+				}
+			},
+			"result": {
+				"message": "",
+				"action": "install",
+				"status": "success"
+			},
+			"parameters": {
+				"namespace": "test",
+				"porter-debug": true,
+				"wordpress-name": "porter-ci-wordpress",
+				"wordpress-password": "passw0rd"
+			},
+			"outputs": {
+				"wordpress-password": "passw0rd"
+			}
+		},
+		{
+			"name": "spring-music",
+			"revision": "01DNQD261VW1E7M9E22SYTKH7R",
+			"created": "2019-09-26T13:17:01.593439-05:00",
+			"modified": "2019-09-26T13:24:20.027702-05:00",
+			"bundle": {
+				"schemaVersion": "v1.0.0-WD",
+				"name": "spring-music",
+				"version": "0.4.1",
+				"description": "Run the Spring Music Service on Kubernetes and Digital Ocean PostgreSQL",
+				"invocationImages": [
+					{
+						"imageType": "docker",
+						"image": "jeremyrickard/porter-do:v0.4.1"
+					}
+				],
+				"images": {
+					"spring-music": {
+						"imageType": "docker",
+						"image": "jeremyrickard/spring-music@sha256:8f1133d81f1b078c865cdb11d17d1ff15f55c449d3eecca50190eed0f5e5e26f",
+						"contentDigest": "sha256:8f1133d81f1b078c865cdb11d17d1ff15f55c449d3eecca50190eed0f5e5e26f",
+						"description": "Spring Music Example"
+					}
+				},
+				"parameters": {
+					"database_name": {
+						"definition": "database_name",
+						"description": "Name of database to create",
+						"destination": {
+							"env": "DATABASE_NAME"
+						}
+					},
+					"helm_release": {
+						"definition": "helm_release",
+						"description": "Helm release name",
+						"destination": {
+							"env": "HELM_RELEASE"
+						}
+					},
+					"namespace": {
+						"definition": "namespace",
+						"description": "Namespace to install Spring Music app",
+						"destination": {
+							"env": "NAMESPACE"
+						}
+					},
+					"node_count": {
+						"definition": "node_count",
+						"description": "Number of database nodes",
+						"destination": {
+							"env": "NODE_COUNT"
+						}
+					},
+					"porter-debug": {
+						"definition": "porter-debug",
+						"description": "Print debug information from Porter when executing the bundle",
+						"destination": {
+							"env": "PORTER_DEBUG"
+						}
+					},
+					"region": {
+						"definition": "region",
+						"description": "Region to create Database and DO Space",
+						"destination": {
+							"env": "REGION"
+						}
+					},
+					"space_name": {
+						"definition": "space_name",
+						"description": "Name for DO Space",
+						"destination": {
+							"env": "SPACE_NAME"
+						}
+					}
+				},
+				"credentials": {
+					"do_access_token": {
+						"env": "DO_ACCESS_TOKEN",
+						"description": "Access Token for Digital Ocean Account"
+					},
+					"do_spaces_key": {
+						"env": "DO_SPACES_KEY",
+						"description": "DO Spaces API Key"
+					},
+					"do_spaces_secret": {
+						"env": "DO_SPACES_SECRET",
+						"description": "DO Spaces API Secret"
+					},
+					"kubeconfig": {
+						"path": "/root/.kube/config",
+						"description": "Kube config file with permissions to deploy app"
+					}
+				},
+				"outputs": {
+					"service_ip": {
+						"definition": "service_ip",
+						"description": "IP Address assigned to the Load Balancer",
+						"path": "/cnab/app/outputs/service_ip"
+					}
+				},
+				"definitions": {
+					"database_name": {
+						"default": "webinar",
+						"description": "Name of database to create",
+						"type": "string"
+					},
+					"helm_release": {
+						"default": "spring-music-helm",
+						"description": "Helm release name",
+						"type": "string"
+					},
+					"namespace": {
+						"default": "default",
+						"description": "Namespace to install Spring Music app",
+						"type": "string"
+					},
+					"node_count": {
+						"default": 1,
+						"description": "Number of database nodes",
+						"type": "integer"
+					},
+					"porter-debug": {
+						"default": false,
+						"description": "Print debug information from Porter when executing the bundle",
+						"type": "boolean"
+					},
+					"region": {
+						"default": "nyc3",
+						"description": "Region to create Database and DO Space",
+						"type": "string"
+					},
+					"service_ip": {
+						"description": "IP Address assigned to the Load Balancer",
+						"type": "string"
+					},
+					"space_name": {
+						"default": "webinar",
+						"description": "Name for DO Space",
+						"type": "string"
+					}
+				},
+				"custom": {
+					"io.cnab.dependencies": null,
+					"sh.porter": {
+						"manifestDigest": "91ecc303fe5815eeebf7a1913c39fe80b3b5b0c3795c42c0db75bd2770589dc4",
+						"mixins": {
+							"exec": {},
+							"helm": {},
+							"terraform": {}
+						}
+					}
+				}
+			},
+			"result": {
+				"message": "",
+				"action": "install",
+				"status": "success"
+			},
+			"parameters": {
+				"database_name": "webinar",
+				"helm_release": "spring-music-helm",
+				"namespace": "default",
+				"node_count": 1,
+				"porter-debug": false,
+				"region": "nyc3",
+				"space_name": "webinar"
+			},
+			"outputs": {
+				"service_ip": "159.89.255.21"
+			}
 		}
 	],
 	"duffle": [

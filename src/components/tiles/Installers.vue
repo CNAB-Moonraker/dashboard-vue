@@ -8,7 +8,7 @@
 		name: 'installers',
 		props: {
 			color: String,
-			'color-code': String,
+			colorCode: String,
 		},
 		computed: {
 			installers() {
@@ -33,15 +33,17 @@
 				}
 				return res
 			},
-			minW: () => 3,
-			minH: () => 3,
+			minW: () => 2,
+			minH: () => 1,
+			defaultW: () => 4,
+			defaultH: () => 3,
 		},
 	}
 </script>
 
 <template>
 	<section :class='`border_left_${color}_${colorCode}`' id='installers'>
-		<h2>Installers</h2>
+		<h2>Bundles by Installer</h2>
 		<ul>
 			<li class='installer-li' v-for='key in Object.keys(installers)' :key='key'>
 				<span>
