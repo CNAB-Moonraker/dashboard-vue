@@ -1,17 +1,16 @@
 <script>
 /* eslint-disable vue/no-unused-components */
+
 	import Vue from 'vue'
-
 	import VueGridLayout from 'vue-grid-layout'
-
-	import BundlesInstalled from '@/components/BundlesInstalled.vue'
-	import RecentBundles from '@/components/RecentBundles.vue'
-	import Installers from '@/components/Installers.vue'
-	import BundleStatus from '@/components/BundleStatus.vue'
-
-	import Mixins from '@/components/custom/porter/Mixins.vue'
+	import BundlesInstalled from '@/components/tiles/BundlesInstalled.vue'
+	import RecentCommands from '@/components/tiles/RecentCommands.vue'
+	import Installers from '@/components/tiles/Installers.vue'
+	import Mixins from '@/components/tiles/custom/porter/Mixins.vue'
 
 	import logo from '@/img/MOONRAKER.svg'
+
+	import { getColorName } from '@/util'
 
 	export default {
 		name: `app`,
@@ -19,83 +18,75 @@
 			GridLayout: VueGridLayout.GridLayout,
 			GridItem: VueGridLayout.GridItem,
 			BundlesInstalled,
-			RecentBundles,
+			RecentCommands,
 			Installers,
-			BundleStatus,
 			Mixins,
 		},
-		data() {
-			return {
-				logo,
-				colorCode: '500',
-				layout: [],
-			}
-		},
-		mounted() {
-			this.$store.dispatch('getClaims')
+		data: () => ({
+			logo,
+			colorCode: '500',
+			layout: [],
+			menuOpen: false,
+		}),
+		async mounted() {
+			await this.$store.dispatch('getClaims')
 
 			if (localStorage.grid) this.layout = JSON.parse(localStorage.grid)
 			else {
 
-				const colors = [
-					`red`,
-					`pink`,
-					`purple`,
-					`deep_purple`,
-					`indigo`,
-					`blue`,
-					`light_blue`,
-					`cyan`,
-					`teal`,
-					`green`,
-					`light_green`,
-					`lime`,
-					`amber`,
-					`orange`,
-					`deep_orange`,
-				]
-
 				const tiles = [
-					BundlesInstalled,
-					RecentBundles,
-					Installers,
-					BundleStatus,
 					Mixins,
+					RecentCommands,
+					Installers,
+					BundlesInstalled,
 				]
 
 				let curX = 0
 
+				const colorNames = []
+
 				tiles.forEach((tile, i) => {
 
 					const c = Math.floor(Math.random() * 15)
-					console.log(c)
 
 					const mw = tile.computed.minW() || 1
 					const mh = tile.computed.minH() || 1
+					const dw = tile.computed.defaultW() || 1
+					const dh = tile.computed.defaultH() || 1
 
 					if (curX + mw > 12) curX = 0
+
+					colorNames.push(getColorName(colorNames))
+
+					console.log(colorNames[i])
 
 					this.layout.push({
 						x: curX,
 						y: 0,
-						w: mw,
-						h: mh,
+						w: dw,
+						h: dh,
 						i,
 						minW: mw,
 						minH: mh,
 						comp: tile.name,
 						props: {
-							color: colors[c],
+							color: colorNames[i],
 							colorCode: this.colorCode,
 						},
 					})
 
-					curX += mw
+					curX += dw
 
 				})
 			}
 		},
 		methods: {
+			refresh() {
+				if (confirm(`This will change the current dashboard layout to the default. Proceed?`)) {
+					localStorage.clear()
+					window.location.reload()
+				}
+			},
 			movedEvent(){
 				localStorage.grid = JSON.stringify(this.layout)
 			},
@@ -112,8 +103,16 @@
 <template>
 	<div id='app'>
 		<header>
-			<img :src='logo' >
+			<img id='moonraker-logo' :src='logo'>
 			<h4>Moonraker</h4>
+			<i id='settings-button' :class='menuOpen ? `material-icons active` : `material-icons`' @click='menuOpen = !menuOpen' alt='test'>settings</i>
+
+			<div id='nav-menu' :class='menuOpen ? `active` : ``'>
+				<div class='dropdown-content'  @click='refresh'>
+					Reset Layout
+				</div>
+			</div>
+
 		</header>
 		<main>
 			<grid-layout
@@ -156,8 +155,14 @@
 @import url('https://fonts.googleapis.com/css?family=Ubuntu&display=swap');
 @import url('scss/color.scss');
 
+:root {
+	--drawer-width: 300px;
+	--drawer-trans: all .35s ease-in-out;
+}
+
 html {
-	background-color: #263238;
+	// background-color: #263238;
+	background-color: #383d43;
 }
 
 * {
@@ -190,6 +195,8 @@ body {
 	color: white;
 
 	header {
+		position: relative;
+
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -223,6 +230,53 @@ body {
 
 	section {
 		height: 100%;
+		background-color: #43484f;
+		// overflow-y: scroll;
 	}
 }
+
+#nav-menu {
+	position: fixed;
+	top: 0;
+	right: calc(var(--drawer-width) * -1);
+	z-index: 1000;
+	height: 100vh;
+	width: var(--drawer-width);
+	background-color: #43484f;
+	transition: var(--drawer-trans);
+	padding-top: 3rem;
+}
+
+#nav-menu.active {
+	right: 0;
+	box-shadow: 0 0 50px 0 rgba(0,0,0,0.5);
+}
+
+#settings-button {
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+	cursor: pointer;
+	transition: var(--drawer-trans);
+	z-index: 1001;
+}
+
+#settings-button.active {
+	right: calc(var(--drawer-width) - 24px - 1rem);
+}
+
+/* Links inside the dropdown */
+.dropdown-content {
+	color: white;
+	text-decoration: none;
+	padding: 1rem;
+	margin-right: 2px;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content:hover {
+	cursor: pointer;
+	background-color: #535963;
+}
+
 </style>
