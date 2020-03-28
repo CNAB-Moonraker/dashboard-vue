@@ -35,7 +35,7 @@
 			},
 			minW: () => 5,
 			minH: () => 2,
-			defaultW: () => 8,
+			defaultW: () => 7,
 			defaultH: () => 5,
 		},
 	}

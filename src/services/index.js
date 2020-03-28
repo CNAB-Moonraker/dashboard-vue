@@ -1,5 +1,7 @@
-import ApiProxy from './ApiProxy'
-// import ApiProxy from './test/MockApiProxy'
+import RealApiProxy from './ApiProxy'
+import MockApiProxy from './test/MockApiProxy'
+
+const ApiProxy = process.env.NODE_ENV === 'production' ? RealApiProxy : MockApiProxy
 
 export {
 	ApiProxy,

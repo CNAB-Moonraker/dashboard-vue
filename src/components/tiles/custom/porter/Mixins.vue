@@ -1,7 +1,7 @@
 <script>
 	import PieChart from '@/components/PieChart.vue'
 
-	import { colors } from '@/util'
+	import { colors, getColor, getShade } from '@/util'
 
 	export default {
 		name: 'mixins',
@@ -12,37 +12,60 @@
 			color: String,
 			colorCode: String,
 		},
-		data: () => ({
-			claims: [],
-			chartData: {
-				labels: [],
-				datasets: [
-					{
-						backgroundColor: colors,
-						data: [],
+		data: () => {
+
+			if (!localStorage.moonrakerMixinColors) {
+
+				const borderColor = []
+				const backgroundColor = Object.keys(colors).reduce((acc, key) => {
+					const c = getColor(acc, '500')
+					acc.push(c)
+					const b = getShade(c, '800')
+					borderColor.push(b)
+					return acc
+				}, [])
+
+				localStorage.moonrakerMixinColors = JSON.stringify({
+					borderColor,
+					backgroundColor,
+				})
+			}
+
+			return {
+				claims: [],
+				chartData: {
+					labels: [],
+					datasets: [
+						{
+							backgroundColor: JSON.parse(localStorage.moonrakerMixinColors).backgroundColor,
+							borderColor: JSON.parse(localStorage.moonrakerMixinColors).borderColor,
+							borderAlign: 'inner',
+							data: [],
+						},
+					],
+				},
+				options: {
+					maintainAspectRatio: false,
+					legend: {
+						position: 'right',
+						labels: {
+							boxWidth: 20,
+							fontSize: 20,
+							fontColor: '#fff',
+							fontFamily: `'Ubuntu', sans-serif`,
+						},
 					},
-				],
-			},
-			options: {
-				responsive: true,
-				maintainAspectRatio: false,
-				legend: {
-					position: 'right',
-					labels: {
-						fontSize: 20,
-						fontColor: '#fff',
+					layout: {
+						padding: {
+							top: 0,
+							right: 30,
+							bottom: 0,
+							left: 30,
+						},
 					},
 				},
-				layout: {
-					padding: {
-						top: 10,
-						right: 10,
-						bottom: 10,
-						left: 10,
-					},
-				},
-			},
-		}),
+			}
+		},
 		mounted() {
 			this.getAllClaims()
 			this.getChartData()
@@ -80,12 +103,13 @@
 		computed: {
 			minW: () => 2,
 			minH: () => 1,
-			defaultW: () => 4,
+			defaultW: () => 5,
 			defaultH: () => 5,
 			myStyles () {
 				return {
 					position: `relative`,
-					height: `${this.height}px`,
+					height: `calc(100% - 7rem)`,
+					width: `100%`,
 				}
 			},
 		},

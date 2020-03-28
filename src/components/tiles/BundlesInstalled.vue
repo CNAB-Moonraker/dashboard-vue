@@ -7,7 +7,7 @@
 		},
 		computed: {
 			bundlesInstalled() {
-				return this.$store.getters.allClaims.filter(claim => claim.result.action === `install` && claim.result.status !== `failure`).length
+				return this.$store.getters.allClaims.filter(claim => claim.result.status !== `failure`).length
 			},
 			totalBundles() {
 				return this.$store.getters.allClaims.length
