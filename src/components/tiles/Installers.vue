@@ -47,7 +47,10 @@
 		<ul>
 			<li class='installer-li' v-for='key in Object.keys(installers)' :key='key'>
 				<span>
-					<img class='installer-logo' :src='installers[key].img' />
+					<span class='installer-logo-container'>
+						<img v-if='installers[key].img' class='installer-logo' :src='installers[key].img' />
+						<i v-else class='installer-logo default material-icons' alt=''>work</i>
+					</span>
 					<span>{{key}}</span>
 				</span>
 				<span>
@@ -67,19 +70,31 @@
 	.installer-li > span {
 		display: flex;
 		align-items: center;
+		justify-content: center;
 		margin-bottom: .7rem;
 
-		> span {
+		& > span {
 			text-transform: capitalize;
-		}
+			height: 2rem;
+			width: 4rem;
+			display: flex;
+			align-items: center;
 
-		img {
-			margin-right: 1rem;
-		}
-	}
+			&.installer-logo-container {
+				justify-content: center;
 
-	.installer-logo {
-		height: 2rem;
+				& > .installer-logo {
+					height: 2rem;
+					display: flex;
+					justify-self: center;
+
+					&.default {
+						color: gray;
+						font-size: 2rem;
+					}
+				}
+			}
+		}
 	}
 
 	ul {

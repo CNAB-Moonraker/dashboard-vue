@@ -27,9 +27,15 @@
 			colorCode: '500',
 			layout: [],
 			menuOpen: false,
+			poll: null,
 		}),
 		async mounted() {
+
 			await this.$store.dispatch('getClaims')
+
+			this.poll = setInterval(() => {
+				this.$store.dispatch('getClaims')
+			}, 5000)
 
 			if (localStorage.grid) this.layout = JSON.parse(localStorage.grid)
 			else {
@@ -58,8 +64,6 @@
 
 					colorNames.push(getColorName(colorNames))
 
-					console.log(colorNames[i])
-
 					this.layout.push({
 						x: curX,
 						y: 0,
@@ -79,6 +83,9 @@
 
 				})
 			}
+		},
+		beforeDestroy() {
+			clearInterval(this.poll)
 		},
 		methods: {
 			refresh() {
@@ -144,7 +151,7 @@
 					@resized='resizedEvent'
 					@container-resized='containerResizedEvent'
 				>
-					<component :is='item.comp' v-bind='item.props'></component>
+					<component :is='item.comp' v-bind='item.props' ></component>
 				</grid-item>
 			</grid-layout>
 		</main>

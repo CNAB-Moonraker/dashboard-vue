@@ -1,5 +1,5 @@
 import Claim from '@/models/Claim'
-import testdata from './stuff.json'
+import testdata from './test-data.json'
 
 export default class ApiProxy {
 	/**
